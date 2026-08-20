@@ -6,12 +6,10 @@ import { CartPage } from '../pages/CartPage';
 import { LoginPage } from '../pages/LoginPage';
 import { ContactusPage } from '../pages/ContactusPage';
 
-test.describe('Happy Path home page tests', () => {
-    let homePage: HomePage;
+let homePage: HomePage;
 
-    //block Google popups
     test.beforeEach(async ({ page }) => {
-
+        //block Google popups
         await page.route(
             '**/*',
             (route) => {
@@ -26,13 +24,17 @@ test.describe('Happy Path home page tests', () => {
             }
         );
 
+        //navigate to homepage
         homePage = new HomePage(page);
         await homePage.goto();
     });
 
-    test('Home Page is visible', async () => {
-        //make sure home page banner is visible
+test.describe('Happy Path home page tests', () => {
+
+    test('Home Page is visible', async ({ page }) => {
+        //make sure home page banner is visible and url is correct
         await expect(homePage.homePageFeaturesHeader).toHaveText('Features Items');
+        await expect(page).toHaveURL('/');
     });
 
     test('View Product link works', async ({ page }) => {
@@ -54,9 +56,12 @@ test.describe('Happy Path home page tests', () => {
 
         await homePage.productNavLink.click();
 
+        //get product header
+        const productHeader = productPage.getHeader('All Products');
+
         //check for correct url and correct header
         await expect(page).toHaveURL('/products');
-        await expect(productPage.productHeader).toHaveText('All Products');
+        await expect(productHeader).toHaveText('All Products');
     });
 
     test('Cart link works', async ({ page }) => {
@@ -104,16 +109,11 @@ test.describe('Happy Path home page tests', () => {
 });
 
 test.describe('Negative Path home page test', () => {
-    let homePage: HomePage;
-
-    test.beforeEach(async ({ page }) => {
-        homePage = new HomePage(page);
-        await homePage.goto();
-    });
 
     test('try to go to nonexistant page', async ({ page }) => {
         //check if website redirects for incorrect url
         await page.goto('/nonexistant_page');
         await expect(page).toHaveURL('https://automationexercise.com/');
     });
+
 });

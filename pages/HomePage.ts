@@ -24,22 +24,10 @@ export class HomePage {
         await this.page.goto('/');
     }
 
-    getAddToCartLink(productName: string): Locator {
-        return this.page
-                .locator('.single-products')
-                .filter({ hasText: productName })
-                .getByRole('link', { name: 'Add to cart' })
-                .first();
-    }
-
     getViewProductLink(productName: string): Locator {
         return this.page
                 .locator('.product-image-wrapper')
                 .filter({ hasText: productName })
                 .getByRole('link', { name: 'View Product' });
-    }
-
-    async addProductToCart(productName: string) {
-        await this.getAddToCartLink(productName).click();
     }
 }

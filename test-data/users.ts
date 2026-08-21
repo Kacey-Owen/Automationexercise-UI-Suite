@@ -1,6 +1,15 @@
-export const validUser = {
+export const validUserDetails = {
+    fullName: 'Jack Allen',
     email: `user${Date.now()}@website.com`,
-    password: 'password123'
+    password: 'password123',
+    firstName:'Jack',
+    lastName: 'Allen',
+    address: '123 Random St',
+    state: 'Colorado',
+    city: 'Random City',
+    country: 'United States',
+    zipcode: '77777',
+    mobileNumber: '5555555555'
 }
 
 export const invalidUser = {

@@ -3,7 +3,7 @@ import { HomePage } from '../pages/HomePage';
 import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { CartPage } from '../pages/CartPage';
-import { LoginPage } from '../pages/LoginPage';
+import { AuthPage } from '../pages/AuthPage';
 import { ContactusPage } from '../pages/ContactusPage';
 
 let homePage: HomePage;
@@ -75,16 +75,20 @@ test.describe('Happy Path home page tests', () => {
         await expect(cartPage.emptyCartMessage).toHaveText('Cart is empty!');
     });
 
-    test('Login/Signup link works', async ({ page }) => {
+    test('check if Signup/Login link works', async ({ page }) => {
         //navigate to login/signup page
-        const loginPage = new LoginPage(page);
+        const authPage = new AuthPage(page);
 
         await homePage.logInNavLink.click();
 
+        //get header
+        const loginMessage = authPage.getHeader('Login to your account');
+        const signupMessage = authPage.getHeader('New User Signup!');
+
         //check for correct url and login and signup messages
         await expect(page).toHaveURL('/login');
-        await expect(loginPage.loginMessage).toHaveText('Login to your account');
-        await expect(loginPage.signupMessage).toHaveText('New User Signup!');
+        await expect(loginMessage).toHaveText('Login to your account');
+        await expect(signupMessage).toHaveText('New User Signup!');
     });
 
     test('Contact Us link works', async ({ page }) => {

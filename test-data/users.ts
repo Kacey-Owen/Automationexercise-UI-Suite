@@ -16,3 +16,9 @@ export const invalidUser = {
     email: 'wronguser@website.com',
     password: 'wrongpassword123'
 }
+
+export const existinguser = {
+    name: 'Jack',
+    email: 'fake123@fake.com',
+    password: 'password123'
+}

@@ -14,7 +14,7 @@ export class ProductsPage {
         this.addedToCartMsg = this.page.locator('.modal-body').getByText('Your product has been added to cart.');
     }
 
-    async goToProductsPage() {
+    async goto() {
         await this.page.goto('/products');
     }
 
@@ -43,5 +43,12 @@ export class ProductsPage {
         return this.page
                 .locator('.productinfo')
                 .getByText(productName);
+    }
+
+    getViewProductLink(productName: string): Locator {
+        return this.page
+                .locator('.product-image-wrapper')
+                .filter({ hasText: productName })
+                .getByRole('link', { name: 'View Product' });
     }
 }

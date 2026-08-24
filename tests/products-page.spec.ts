@@ -23,7 +23,7 @@ let productsPage: ProductsPage;
         //navigate to products page each test
         productsPage = new ProductsPage(page);
 
-        await productsPage.goToProductsPage();
+        await productsPage.goto();
     });
 
 

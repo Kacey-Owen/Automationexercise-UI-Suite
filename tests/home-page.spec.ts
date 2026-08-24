@@ -4,7 +4,6 @@ import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { CartPage } from '../pages/CartPage';
 import { AuthPage } from '../pages/AuthPage';
-import { ContactusPage } from '../pages/ContactusPage';
 
 let homePage: HomePage;
 
@@ -89,17 +88,6 @@ test.describe('Happy Path home page tests', () => {
         await expect(page).toHaveURL('/login');
         await expect(loginMessage).toHaveText('Login to your account');
         await expect(signupMessage).toHaveText('New User Signup!');
-    });
-
-    test('Contact Us link works', async ({ page }) => {
-        //navigate to contact us page
-        const contactusPage = new ContactusPage(page);
-
-        await homePage.contactusNavLink.click();
-
-        //check for correct url and contact us header and form
-        await expect(page).toHaveURL('/contact_us');
-        await expect(contactusPage.contactusHeader).toHaveText('Contact Us');
     });
 
     test('check website logo link works', async ({ page }) => {

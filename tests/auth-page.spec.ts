@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 import { AuthPage, SignupPage } from '../pages/AuthPage';
 import { validUserDetails, invalidUser, existinguser } from '../test-data/users';
 import { HomePage } from '../pages/HomePage';
-import { sign } from 'node:crypto';
 
 let authPage: AuthPage;
 let signupPage: SignupPage;

@@ -52,7 +52,7 @@ test.describe('Happy Path tests', () => {
 
         //check cart page for correct quantity
         const cartPage = new CartPage(page);
-        await expect(cartPage.getProductQuantity('Blue Top')).toHaveText('10');
+        await expect(cartPage.getProductQuantity('Blue Top', '1')).toHaveText('10');
     });
 
     test('check if review section works', async ({ page }) => {
@@ -80,7 +80,7 @@ test.describe('Negative Paths', async () => {
         //go to cart and see if quantity is still negative
         await productDetailPage.viewCartLink.click();
         const cartPage = new CartPage(page);
-        await expect(cartPage.getProductQuantity('Blue Top')).toHaveText('-2');//quantity is still negative in cart
+        await expect(cartPage.getProductQuantity('Blue Top', '1')).toHaveText('-2');//quantity is still negative in cart
     });
 
     test('check if quantity is required to be numerical', async () => {

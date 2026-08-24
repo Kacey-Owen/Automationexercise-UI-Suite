@@ -6,12 +6,16 @@ export class ProductsPage {
     readonly searchBox: Locator;
     readonly searchBtn: Locator;
     readonly addedToCartMsg: Locator;
+    readonly continueShoppingBtn: Locator;
+    readonly viewCartLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.searchBox = this.page.locator('#search_product');
         this.searchBtn = this.page.locator('#submit_search');
         this.addedToCartMsg = this.page.locator('.modal-body').getByText('Your product has been added to cart.');
+        this.continueShoppingBtn = this.page.locator('.modal-footer').getByText('Continue Shopping');
+        this.viewCartLink = this.page.locator('.modal-body').getByRole('link', { name: 'View Cart'});
     }
 
     async goto() {
@@ -50,5 +54,13 @@ export class ProductsPage {
                 .locator('.product-image-wrapper')
                 .filter({ hasText: productName })
                 .getByRole('link', { name: 'View Product' });
+    }
+
+    async addToCart(productName: string) {
+        const product = this.getProductName(productName);
+
+        await product.hover();
+
+        await this.getAddToCartLink(productName).click();
     }
 }

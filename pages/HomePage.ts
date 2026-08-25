@@ -8,6 +8,8 @@ export class HomePage {
     readonly cartNavLink: Locator;
     readonly logInNavLink: Locator;
     readonly logOutNavLink: Locator; //used for auth page login test
+    readonly deleteAccLink: Locator;
+    readonly accDeletedMsg: Locator;
     readonly contactusNavLink: Locator;
     readonly websiteLogo: Locator;
 
@@ -18,6 +20,8 @@ export class HomePage {
         this.cartNavLink = this.page.getByRole('link', {name: ' Cart'});
         this.logInNavLink = this.page.getByRole('link', {name: ' Signup / Login'});
         this.logOutNavLink = this.page.getByRole('link', {name: ' Logout'});//used for after user is logged in
+        this.deleteAccLink = this.page.getByRole('link', { name: ' Delete Account'});//used for e2e test
+        this.accDeletedMsg = this.page.locator('[data-qa="account-deleted"]');
         this.contactusNavLink = this.page.getByRole('link', {name: ' Contact us'});
         this.websiteLogo = this.page.getByAltText('Website for automation practice');
     }

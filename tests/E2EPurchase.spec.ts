@@ -6,6 +6,7 @@ import { ProductsPage } from '../pages/ProductsPage';
 import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
+import { PaymentPage } from '../pages/PaymentPage';
 
     let homePage: HomePage;
     let authPage: AuthPage;
@@ -14,6 +15,7 @@ import { CheckoutPage } from '../pages/CheckoutPage';
     let productDetailPage: ProductDetailPage;
     let cartPage: CartPage;
     let checkoutPage: CheckoutPage;
+    let paymentPage: PaymentPage;
 
     test.beforeEach(async ({ page }) => {
         //block Google popups
@@ -96,6 +98,26 @@ import { CheckoutPage } from '../pages/CheckoutPage';
         //fill message box and place order
         await checkoutPage.messageBox.fill('Please leave at side door instead of front door.');
         await checkoutPage.placeOrderBtn.click();
+        paymentPage = new PaymentPage(page);
 
-        await page.pause();
+        //fill in payment info and confirm order
+        await paymentPage.nameInput.fill(validUserDetails.fullName);
+        await paymentPage.cardNumber.fill(validUserDetails.cardNumber);
+        await paymentPage.cvcNum.fill(validUserDetails.cvc);
+        await paymentPage.expirationMonth.fill(validUserDetails.expirationMonth);
+        await paymentPage.expirationYear.fill(validUserDetails.expirationYear);
+        await paymentPage.confirmOrderBtn.click();
+
+        //check for order placed message
+        await expect(paymentPage.orderConfirmedMsg).toHaveText('Order Placed!');
+
+        //press continue button and then delete account
+        await paymentPage.continueBtn.click();
+        homePage = new HomePage(page);
+        homePage.deleteAccLink.click();
+
+        //check for deleted account confirmation message
+        await expect(homePage.accDeletedMsg).toHaveText('Account Deleted!');
+
+        //E2E flow done
     });

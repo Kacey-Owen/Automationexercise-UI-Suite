@@ -9,7 +9,11 @@ export const validUserDetails = {
     city: 'Random City',
     country: 'United States',
     zipcode: '77777',
-    mobileNumber: '5555555555'
+    mobileNumber: '5555555555', 
+    cardNumber: '0000000000000000',
+    cvc: '000',
+    expirationMonth: '10',
+    expirationYear: '2042'
 }
 
 export const invalidUser = {

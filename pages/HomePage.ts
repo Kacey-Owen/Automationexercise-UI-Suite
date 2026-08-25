@@ -10,7 +10,6 @@ export class HomePage {
     readonly logOutNavLink: Locator; //used for auth page login test
     readonly deleteAccLink: Locator;
     readonly accDeletedMsg: Locator;
-    readonly contactusNavLink: Locator;
     readonly websiteLogo: Locator;
 
     constructor(page: Page) {
@@ -22,7 +21,6 @@ export class HomePage {
         this.logOutNavLink = this.page.getByRole('link', {name: ' Logout'});//used for after user is logged in
         this.deleteAccLink = this.page.getByRole('link', { name: ' Delete Account'});//used for e2e test
         this.accDeletedMsg = this.page.locator('[data-qa="account-deleted"]');
-        this.contactusNavLink = this.page.getByRole('link', {name: ' Contact us'});
         this.websiteLogo = this.page.getByAltText('Website for automation practice');
     }
 

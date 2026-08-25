@@ -3,7 +3,6 @@ import { Page, Locator } from '@playwright/test';
 export class ProductDetailPage {
 
     readonly page: Page;
-    readonly productNameHeader: Locator;
     readonly quantityInput: Locator;
     readonly addToCartBtn: Locator;
     readonly addedToCartMsg: Locator;
@@ -16,7 +15,6 @@ export class ProductDetailPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.productNameHeader = this.page.getByRole('heading', { name: 'Blue Top' });
         this.quantityInput = this.page.locator('#quantity');
         this.addToCartBtn = this.page.getByRole('button', { name: 'Add to cart' });
         this.addedToCartMsg = this.page.locator('.modal-body').getByText('Your product has been added to cart.');
@@ -27,10 +25,6 @@ export class ProductDetailPage {
         this.submitBtn = this.page.getByRole('button', { name: 'Submit' });
         this.reviewConfirm = this.page.getByText('Thank you for your review.');
 
-    }
-
-    async goto() {
-        await this.page.goto('/products');
     }
 
     getHeader(headerName: string): Locator {

@@ -39,10 +39,6 @@ export class CartPage {
                 .locator('.cart_quantity_delete');
     }
 
-    getCartProductHeader(productName: string): Locator {
-        return this.page.getByRole('heading', { name: productName });
-    }
-
     async goto() {
         await this.page.goto('/view_cart');
     }

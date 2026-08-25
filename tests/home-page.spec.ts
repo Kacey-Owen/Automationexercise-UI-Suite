@@ -46,7 +46,7 @@ test.describe('Happy Path home page tests', () => {
         //check for correct url and correct product
         await expect(page).toHaveURL('/product_details/1');
 
-        await expect(productDetailPage.productNameHeader).toHaveText('Blue Top');
+        await expect(productDetailPage.getHeader('Blue Top')).toHaveText('Blue Top');
     });
 
     test('Products link works', async ({ page }) => {

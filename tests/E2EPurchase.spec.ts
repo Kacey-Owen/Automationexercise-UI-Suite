@@ -34,7 +34,7 @@ import { PaymentPage } from '../pages/PaymentPage';
         );
 
         homePage = new HomePage(page);
-        homePage.goto();
+        await homePage.goto();
     });
 
     test('Full E2E purchase flow', async ({ page }) => {
@@ -114,7 +114,7 @@ import { PaymentPage } from '../pages/PaymentPage';
         //press continue button and then delete account
         await paymentPage.continueBtn.click();
         homePage = new HomePage(page);
-        homePage.deleteAccLink.click();
+        await homePage.deleteAccLink.click();
 
         //check for deleted account confirmation message
         await expect(homePage.accDeletedMsg).toHaveText('Account Deleted!');

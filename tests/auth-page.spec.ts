@@ -7,6 +7,22 @@ let authPage: AuthPage;
 let signupPage: SignupPage;
 
 test.beforeEach(async ({ page }) => {
+
+    //block google popups
+        await page.route(
+            '**/*',
+            (route) => {
+                const url = route.request().url();
+                if (url.includes('googlesyndication') || 
+                    url.includes('doubleclick') || 
+                    url.includes('googleadservices') || 
+                    url.includes('pagead')) {
+                    return route.abort();
+                }
+                return route.continue();
+            }
+        );
+
     //navigate to auth page every test
     authPage = new AuthPage(page);
     await authPage.goto();
@@ -42,6 +58,11 @@ test.describe('Happy Paths', () => {
         const creationMsg = signupPage.getHeader('Account Created!');
         await expect(creationMsg).toHaveText('Account Created!');
         await expect(page).toHaveURL('/account_created');
+
+        //delete account to avoid orphan accounts
+        await signupPage.continueBtn.click();
+        let homePage = new HomePage(page);
+        await homePage.deleteAccLink.click();
     });
 
     test('check log in form works', async ({ page }) => {

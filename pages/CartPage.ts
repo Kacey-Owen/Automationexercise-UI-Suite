@@ -4,10 +4,14 @@ export class CartPage {
     
     readonly page: Page;
     readonly emptyCartMessage: Locator;
+    readonly checkoutBtn: Locator;
+    readonly modalMsg: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.emptyCartMessage = this.page.getByText('Cart is empty!');
+        this.checkoutBtn = this.page.locator('.check_out');
+        this.modalMsg = this.page.locator('.modal-body').getByText('Register / Login account to proceed on checkout.');
     }
 
     getProductQuantity(productName: string, productNum: string): Locator {
@@ -17,11 +21,22 @@ export class CartPage {
                 .locator('.disabled');
     }
 
+    getHeader(headerName: string): Locator {
+        return this.page.getByRole('heading', { name: headerName });
+    }
+
     getProductPrice(productName: string, productNum: string): Locator {
         return this.page
                 .locator(`#product-${productNum}`)
                 .filter({ hasText: productName })
                 .locator('.cart_price');
+    }
+
+    getRemoveBtn(productName: string, productNum: string): Locator {
+        return this.page
+                .locator(`#product-${productNum}`)
+                .filter({ hasText: productName })
+                .locator('.cart_quantity_delete');
     }
 
     getCartProductHeader(productName: string): Locator {

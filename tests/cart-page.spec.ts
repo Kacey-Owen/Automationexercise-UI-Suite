@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { CartPage } from '../pages/CartPage';
 
@@ -42,7 +41,7 @@ let cartPage: CartPage;
 
     test.describe('Happy Path tests', () => {
 
-        test('check if total is correct', async ({ page }) => {
+        test('check if total is correct', async () => {
             //convert Blue Tops qty and price to number for math
             const product1Qty = await cartPage.convertQtyToNumber('Blue Top', '1');
             const product1Price = await cartPage.convertPriceToNumber('Blue Top', '1');
@@ -58,4 +57,26 @@ let cartPage: CartPage;
             const totalProduct2 = (product2Qty * product2Price);
             await expect(totalProduct2).toBe(400);
         });
+
+        test('check if remove buttons work', async () => {
+            //click remove buttons
+            await cartPage.getRemoveBtn('Blue Top', '1').click();
+            await cartPage.getRemoveBtn('Men Tshirt', '2').click();
+
+            //check for empty cart message
+            await expect(cartPage.emptyCartMessage).toHaveText('Cart is empty!');
+        });
+
+    });
+
+    test.describe('Negative Paths', async () => {
+        
+        test('check if site allows checkout while not logged in', async () => {
+            //click checkout button
+            await cartPage.checkoutBtn.click();
+
+            //check for modal message
+            await expect(cartPage.modalMsg).toHaveText('Register / Login account to proceed on checkout.');
+        });
+
     });

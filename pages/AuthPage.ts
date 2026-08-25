@@ -49,6 +49,7 @@ export class SignupPage {
     readonly zipcode: Locator;
     readonly mobileNumber: Locator;
     readonly createAccountBtn: Locator;
+    readonly continueBtn: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -65,6 +66,7 @@ export class SignupPage {
         this.zipcode = this.page.locator('[data-qa="zipcode"]');
         this.mobileNumber = this.page.locator('[data-qa="mobile_number"]');
         this.createAccountBtn = this.page.locator('[data-qa="create-account"]');
+        this.continueBtn = this.page.locator('[data-qa="continue-button"]');
     }
 
     getHeader(headerName: string): Locator {

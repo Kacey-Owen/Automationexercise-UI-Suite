@@ -115,15 +115,8 @@ test.describe('Happy path tests', async () => {
     });
 
     test('check if add to cart button works', async () => {
-        //click add to cart
-        const product = productsPage.getProductName('Blue Top');
-
-        //have to hover to trigger overlay
-        await product.hover();
-
-        const addToCartBtn = productsPage.getAddToCartLink('Blue Top');
-
-        await addToCartBtn.click();
+        //add Blue Top to cart
+        await productsPage.addToCart('Blue Top');
 
         //check if add to cart confirmation message appears
         await expect(productsPage.addedToCartMsg).toHaveText('Your product has been added to cart.');

@@ -79,7 +79,7 @@ The suite covers happy paths as well as negative path, edge cases, and abnormal 
 
 1. No true 404 handling. Navigating to a nonexistent path doesn't return a 404 or show an error page. It just redirects to the homepage instead. A user following a broken or outdated link has no indication anything went wrong.
 
-2. Signup accepts incorrect email addresses formats. The email field relies solely on HTML5 type="email" validation and only checks for the @ symbol. An address like fake123@fake passes validation and the signup flow proceeds normally.
+2. Signup accepts incorrect email addresses formats. The email field relies solely on HTML5 type="email" validation and only checks for the @ symbol and that there is letters after. An address like fake123@fake passes validation and the signup flow proceeds normally.
 
 3. URL and page content disagree after a failed signup. Submitting signup with an already-registered email redirects the URL to /signup which is normally only after a successful signup.
 
@@ -88,5 +88,3 @@ The suite covers happy paths as well as negative path, edge cases, and abnormal 
 5. No running total on the cart page. Each line item shows its own total, but there's no grand total anywhere on the cart page itself. A shopper has no way to see what they're about to spend without doing the math themselves or proceeding to checkout.
 
 6. No way to adjust quantity from the cart. Changing the quantity of an item already in the cart requires removing it and adding it again from the product page. There's no in-place quantity control on the cart itself.
-
-7. Checkout button lacks a proper interactive role. The "Proceed To Checkout" control is an <a> tag with no href attribute, styled as a button. Since there wasn't an href, I wasn't able to use getByRole('link').

@@ -72,3 +72,25 @@ The suite covers happy paths as well as negative path, edge cases, and abnormal 
   ↓<br>
   Delete Account
 </p>
+
+---
+
+Findings
+
+Testing this application surfaced several real behaviors worth documenting — a mix of missing validation, inconsistent responses, and accessibility gaps. These aren't hypothetical; each one is backed by a passing, asserted test in this suite.
+
+1. No true 404 handling. Navigating to a nonexistent path doesn't return a 404 or show an error page — it silently redirects to the homepage instead. A user following a broken or outdated link has no indication anything went wrong.
+
+2. Signup accepts malformed email addresses. The email field relies solely on native HTML5 type="email" validation, which doesn't require a real domain structure. An address like fake123@fake — with no valid top-level domain — passes validation and the signup flow proceeds normally.
+
+3. URL and page content disagree after a failed signup. Submitting signup with an already-registered email redirects the URL to /signup — normally only reached after a successful signup, on the way to the account-details form — but the content rendered is the login/signup landing page with an error message, not that form. Anything inferring app state from the URL alone (analytics, bug reports) would be misled.
+
+4. Quantity accepts negative values with no validation. The quantity field is type="number", which correctly blocks non-numeric characters — but there's no validation on the value itself. Entering -2 and adding to cart succeeds, and the cart displays and retains a quantity of -2.
+
+5. No running total on the cart page. Each line item shows its own total, but there's no grand total anywhere on the cart page itself — a shopper has no way to see what they're about to spend without doing the math themselves or proceeding to checkout.
+
+6. No way to adjust quantity from the cart. Changing the quantity of an item already in the cart requires removing it and re-adding it from the product page; there's no in-place quantity control on the cart itself.
+
+7. Checkout button lacks a proper interactive role. The "Proceed To Checkout" control is an <a> tag with no href attribute, styled as a button. Without an href, it carries no implicit ARIA role, meaning screen readers and other assistive technology wouldn't reliably announce it as an interactive control.
+
+8. No distinct messaging for a zero-result search. The "SEARCHED PRODUCTS" header displays identically whether a search matches products or not. A user searching for something that doesn't exist sees an empty grid with no indication of whether nothing matched or the page failed to load.
